@@ -27,3 +27,5 @@ A password generator is also included, allowing for randomized secured password 
     * These libraries, besides built-in python libraries, were installed using pip
 3. Run the setup.py file to create the tables. ```python -m setup```
 4. Run main to run the program ```python -m main```
+## Side note
+You can run pwGen.py ```python -m pwGen``` as a side program to access the password generator and hasher.
