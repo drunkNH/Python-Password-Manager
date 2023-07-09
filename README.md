@@ -10,6 +10,10 @@ A user's stored passwords is encrypted using Cryptography's Fernet, and only dec
 
 A password generator is also included, allowing for randomized secured password of variable length chosen by the user.
 
+A user can update an account, as well as deleting it.
+
+A user can retrieve an account's passwords by entering the webiste/service associated with the account. In the case of alternative accounts i.e. multiple accounts with the same service, the program will scroll through the accounts with the same requested service
+
 ## Libraries used
 * psycopg2
 * argon2
