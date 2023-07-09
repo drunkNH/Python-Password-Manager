@@ -19,16 +19,18 @@ def passwordGen():
             invalidInput = True
     return generator(n)
 
-def get_accounts(userid):
+def get_accounts(userid, key):
     data = get_all_accounts(userid)
     ids = []
     if not data:
         print('No accounts associated with the provided data')
     else:
         count = 1
+        reveal = input("Reveal passwords to all of your accounts? (Y/N): ")
         for row in data:
             print('Account ' + str(count))
-            print('Username: ' + row[0] + '\nEmail: ' + row[1] + "\nWebsite/Service: " + row[2] + "\n")
+            print('Username: ' + row[0] + '\nEmail: ' + row[1] + "\nWebsite/Service: " + row[2])
+            print('Password: ' + decrypt(key, row[4]) + '\n')
             ids.append(row[3])
             count += 1
     return ids
@@ -64,12 +66,13 @@ def logged_in(username):
     hashed_pw = data[1]
     salt = data[2]
     key = generate_key(hashed_pw, salt)
+    border = '-' * 50 + '\n'
     string = 'HELLO %s\n1: Print all accounts tied to this account\n2: Create a new account\n3: Find Password for Website\n4: Update a account\n5: Delete a account\n6: Password Generator\nQ: Quit\n' % username
     y = 'y'
     while y != 'Q':
-        y = input(string)
+        y = input(border*2 + string + border*2)
         if y == '1':
-            get_accounts(userid)
+            get_accounts(userid, key)
         if y == '2':
             username, email, password, website = inputs()
             encrypted_password = encrypt(key, password)
@@ -93,7 +96,7 @@ def logged_in(username):
                         print(password + '\n')
                     count += 1
         if y == '4':
-            ids = get_accounts(userid)
+            ids = get_accounts(userid, key)
             if not ids: 
                 continue
             accountVal = accountInput('Select the account number you wish to update, or 0 to Quit: ', len(ids))
@@ -104,7 +107,7 @@ def logged_in(username):
                 encrypted_password = encrypt(key, password)
                 update_account(ids[accountVal-1], userid, username, email, encrypted_password, website)
         if y == '5':
-            ids = get_accounts(userid)
+            ids = get_accounts(userid, key)
             if not ids: 
                 continue
             accountVal = accountInput('Select the account number you wish to delete, or 0 to Quit: ', len(ids))
@@ -119,7 +122,9 @@ def logged_in(username):
 # Login menu
 x = 'x'
 while x != 'Q':
-    x = input('LOGIN\n1: Login to an account\n2: Create a new account\nQ: Quit\n')
+    border = '-' * 25 + '\n'
+    string = 'LOGIN\n1: Login to an account\n2: Create a new account\nQ: Quit\n'
+    x = input(border*2 + string + border*2)
     if x == '1':
         username = input('Enter your username: ')
         password = input('Enter your password: ')

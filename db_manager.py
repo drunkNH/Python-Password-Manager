@@ -73,7 +73,7 @@ def get_website_pw(userid, website):
 def get_all_accounts(userid):
     conn = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="password", port=8008)
     cur = conn.cursor()
-    query = """SELECT username, email, website, id FROM accounts WHERE userid = %(userid)s"""
+    query = """SELECT username, email, website, id, password FROM accounts WHERE userid = %(userid)s"""
     cur.execute(query, { 'userid': userid })
     result = cur.fetchall()
     conn.commit()
