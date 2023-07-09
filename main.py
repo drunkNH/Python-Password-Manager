@@ -26,14 +26,12 @@ def get_accounts(userid, key):
         print('No accounts associated with the provided data')
     else:
         count = 1
-        reveal = input("Reveal passwords to all of your accounts? (Y/N): ")
         for row in data:
             print('Account ' + str(count))
-            print('Username: ' + row[0] + '\nEmail: ' + row[1] + "\nWebsite/Service: " + row[2])
-            print('Password: ' + decrypt(key, row[4]) + '\n')
+            print('Username: ' + row[0] + '\nEmail: ' + row[1] + "\nWebsite/Service: " + row[2] + '\n')
             ids.append(row[3])
             count += 1
-    return ids
+    return ids, data
 
 def inputs():
     username = input('Enter a new username: ')
@@ -96,18 +94,23 @@ def logged_in(username):
                         print(password + '\n')
                     count += 1
         if y == '4':
-            ids = get_accounts(userid, key)
+            ids, data = get_accounts(userid, key)
             if not ids: 
                 continue
             accountVal = accountInput('Select the account number you wish to update, or 0 to Quit: ', len(ids))
             if accountVal == 0:
                 continue
             else:
+                password = decrypt(key, data[accountVal-1][4])
+                pyperclip.copy(password)
+                decision = input('Password of Account ' + str(accountVal) + ' has been copied to your clipboard\nWould you like to reveal the password? (Y/N)\n')
+                if decision == 'y' or decision == 'Y':
+                    print(password)
                 username, email, password, website = inputs()
                 encrypted_password = encrypt(key, password)
                 update_account(ids[accountVal-1], userid, username, email, encrypted_password, website)
         if y == '5':
-            ids = get_accounts(userid, key)
+            ids, data = get_accounts(userid, key)
             if not ids: 
                 continue
             accountVal = accountInput('Select the account number you wish to delete, or 0 to Quit: ', len(ids))
