@@ -73,10 +73,35 @@ def get_website_pw(userid, website):
 def get_all_accounts(userid):
     conn = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="password", port=8008)
     cur = conn.cursor()
-    query = """SELECT username, email, website FROM accounts WHERE userid = %(userid)s"""
+    query = """SELECT username, email, website, id FROM accounts WHERE userid = %(userid)s"""
     cur.execute(query, { 'userid': userid })
     result = cur.fetchall()
     conn.commit()
     cur.close()
     conn.close()
     return result
+
+def delete_account(userid, id_to_delete):
+    conn = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="password", port=8008)
+    cur = conn.cursor()
+    query = """DELETE FROM accounts WHERE userid = %(userid)s AND id = %(id_to_delete)s"""
+    cur.execute(query, { 'userid': userid, 'id_to_delete': id_to_delete })
+    conn.commit()
+    cur.close()
+    conn.close()
+
+def update_account(id_to_update, userid, username, email, encrypted_password, website):
+    conn = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="password", port=8008)
+    cur = conn.cursor()
+    query = """UPDATE accounts SET (username, email, password, website) = (%(username)s, %(email)s, %(encrypted_password)s, %(website)s) WHERE userid = %(userid)s AND id = %(id_to_update)s"""
+    cur.execute(query, { 
+        'userid': userid, 
+        'id_to_update': id_to_update,
+        'username': username,
+        'email': email,
+        'encrypted_password': encrypted_password,
+        'website': website
+        })
+    conn.commit()
+    cur.close()
+    conn.close()
