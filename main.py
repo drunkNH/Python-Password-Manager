@@ -104,6 +104,7 @@ def logged_in(username):
             username, email, password, website = inputs()
             encrypted_password = encrypt(key, password)
             create_account(userid, username, email, encrypted_password, website)
+            print('Account Created')
             input('Press Any Key to Continue... ')
         if y == '3':
             website = input('Enter the website/service you need the password to: ')
@@ -124,6 +125,7 @@ def logged_in(username):
                     if choice == 'y' or choice == 'Y':
                         print(password + '\n')
                     count += 1
+                print('End of Accounts with associated website \"' + website '\"')
                 input('Press Any Key to Continue... ')
         if y == '4':
             ids, data = get_accounts(userid, key)
@@ -136,6 +138,7 @@ def logged_in(username):
                 index = accountVal-1
                 username, email, encrypted_password, website = updateMenu(data[index][0], data[index][1], decrypt(key, data[index][4]), data[index][2], data[index][4], key)
                 update_account(ids[index], userid, username, email, encrypted_password, website)
+                print('Account Updated')
                 input('Press Any Key to Continue... ')
         if y == '5':
             ids, data = get_accounts(userid, key)
@@ -146,6 +149,7 @@ def logged_in(username):
                 continue
             else:
                 delete_account(userid, ids[accountVal-1])
+                print('Account Deleted')
                 input('Press Any Key to Continue... ')
         if y == '6':
             print(passwordGen() + '\n')
@@ -172,3 +176,4 @@ while x != 'Q':
         password = input('Enter a new password: ')
         create_user(username)
         print('Account created...')
+exit()
