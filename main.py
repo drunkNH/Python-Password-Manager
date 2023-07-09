@@ -99,16 +99,18 @@ def logged_in(username):
         y = input(border*2 + string + border*2)
         if y == '1':
             get_accounts(userid, key)
-            input('Press Any Key to Continue...')
+            input('Press Any Key to Continue... ')
         if y == '2':
             username, email, password, website = inputs()
             encrypted_password = encrypt(key, password)
             create_account(userid, username, email, encrypted_password, website)
+            input('Press Any Key to Continue... ')
         if y == '3':
             website = input('Enter the website/service you need the password to: ')
             data = get_website_pw(userid, website)
             if not data:
                 print('No accounts associated with the provided data')
+                input('Press Any Key to Continue... ')
             else:
                 count = 1
                 for row in data:
@@ -122,6 +124,7 @@ def logged_in(username):
                     if choice == 'y' or choice == 'Y':
                         print(password + '\n')
                     count += 1
+                input('Press Any Key to Continue... ')
         if y == '4':
             ids, data = get_accounts(userid, key)
             if not ids: 
@@ -130,23 +133,10 @@ def logged_in(username):
             if accountVal == 0:
                 continue
             else:
-                
                 index = accountVal-1
                 username, email, encrypted_password, website = updateMenu(data[index][0], data[index][1], decrypt(key, data[index][4]), data[index][2], data[index][4], key)
-
-                '''
-                password = decrypt(key, data[index][4])
-                pyperclip.copy(password)
-                decision = input('Password of Account ' + str(accountVal) + ' has been copied to your clipboard\nWould you like to reveal the password? (Y/N)\n')
-                if decision == 'y' or decision == 'Y':
-                    print(password)
-                username, email, password, website = inputs()
-                encrypted_password = encrypt(key, password)
-                '''
-
-                
-
                 update_account(ids[index], userid, username, email, encrypted_password, website)
+                input('Press Any Key to Continue... ')
         if y == '5':
             ids, data = get_accounts(userid, key)
             if not ids: 
@@ -156,8 +146,10 @@ def logged_in(username):
                 continue
             else:
                 delete_account(userid, ids[accountVal-1])
+                input('Press Any Key to Continue... ')
         if y == '6':
             print(passwordGen() + '\n')
+            input('Press Any Key to Continue... ')
         
 
 # Login menu
