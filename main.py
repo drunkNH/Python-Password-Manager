@@ -57,6 +57,34 @@ def accountInput(string, size):
             print("ERROR: Invalid input\nPlease select a valid account number")
     return accountVal
 
+def updateMenu(username, email, password, website, encrypted_password, key):
+    decision = input('Reveal password of chosen account? (Y/N): ')
+    
+    choice = ''
+    border = '-' * 50 + '\n'
+    while choice != 'Q':
+        string = 'Select an option\n1: Edit Username (%s)\n2: Edit Email (%s)\n3: Edit Website/Service (%s)\n4: Edit Password ' % (username, email, website)
+        if decision == 'y' or decision == 'Y':
+            string = string + '(' + password + ')'
+        string = string + '\nEnter Q to quit Editing\n'
+
+        choice = input(border + string + border)
+
+        if choice == '1':
+            username = input('Edit username: ')
+        if choice == '2':
+            email = input('Edit email: ')
+        if choice == '3':
+            website = input('Edit website/service: ')
+        if choice == '4':
+            password = input('Enter the password associated to this account. Alternatively type \"c\" to generate a secure password for this account: ')
+            if password == 'c' or password == 'C':
+                password = passwordGen()
+            encrypted_password = encrypt(key, password)
+    return username, email, encrypted_password, website
+            
+
+
 # User is logged into their account
 def logged_in(username):
     data = get_data(username)
@@ -71,6 +99,7 @@ def logged_in(username):
         y = input(border*2 + string + border*2)
         if y == '1':
             get_accounts(userid, key)
+            input('Press Any Key to Continue...')
         if y == '2':
             username, email, password, website = inputs()
             encrypted_password = encrypt(key, password)
@@ -101,14 +130,23 @@ def logged_in(username):
             if accountVal == 0:
                 continue
             else:
-                password = decrypt(key, data[accountVal-1][4])
+                
+                index = accountVal-1
+                username, email, encrypted_password, website = updateMenu(data[index][0], data[index][1], decrypt(key, data[index][4]), data[index][2], data[index][4], key)
+
+                '''
+                password = decrypt(key, data[index][4])
                 pyperclip.copy(password)
                 decision = input('Password of Account ' + str(accountVal) + ' has been copied to your clipboard\nWould you like to reveal the password? (Y/N)\n')
                 if decision == 'y' or decision == 'Y':
                     print(password)
                 username, email, password, website = inputs()
                 encrypted_password = encrypt(key, password)
-                update_account(ids[accountVal-1], userid, username, email, encrypted_password, website)
+                '''
+
+                
+
+                update_account(ids[index], userid, username, email, encrypted_password, website)
         if y == '5':
             ids, data = get_accounts(userid, key)
             if not ids: 
