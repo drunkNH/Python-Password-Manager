@@ -4,9 +4,10 @@ from pwGen import generator
 import pyperclip
 
 '''
-Password Manager created by jrgu
+Password Manager created by jefgu
 '''
 
+# Function to get number of characters for password generator
 def passwordGen():
     invalidInput = True
     while invalidInput:
@@ -19,6 +20,7 @@ def passwordGen():
             invalidInput = True
     return generator(n)
 
+# Function to prints all accounts user has stored
 def get_accounts(userid, key):
     data = get_all_accounts(userid)
     ids = []
@@ -33,6 +35,7 @@ def get_accounts(userid, key):
             count += 1
     return ids, data
 
+# Function for the user to input parameters for a new account
 def inputs():
     username = input('Enter a new username: ')
     email = input('Enter the email associated to this account: ')
@@ -44,6 +47,7 @@ def inputs():
     website = input('Enter the website/service associated to this account: ')
     return username, email, password, website
 
+# Function for account selection in update/delete
 def accountInput(string, size):
     invalidInput = True
     while invalidInput:
@@ -57,9 +61,9 @@ def accountInput(string, size):
             print("ERROR: Invalid input\nPlease select a valid account number")
     return accountVal
 
+# Function for an editing menu for an accounts parameters
 def updateMenu(username, email, password, website, encrypted_password, key):
     decision = input('Reveal password of chosen account? (Y/N): ')
-    
     choice = ''
     border = '-' * 50 + '\n'
     while choice != 'Q':
@@ -67,9 +71,7 @@ def updateMenu(username, email, password, website, encrypted_password, key):
         if decision == 'y' or decision == 'Y':
             string = string + '(' + password + ')'
         string = string + '\nEnter Q to quit Editing\n'
-
         choice = input(border + string + border)
-
         if choice == '1':
             username = input('Edit username: ')
         if choice == '2':
@@ -154,7 +156,6 @@ def logged_in(username):
         if y == '6':
             print(passwordGen() + '\n')
             input('Press Any Key to Continue... ')
-        
 
 # Login menu
 x = 'x'
