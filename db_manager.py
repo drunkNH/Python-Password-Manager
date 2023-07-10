@@ -81,6 +81,7 @@ def get_all_accounts(userid):
     conn.close()
     return result
 
+#deletes a specified account associated with the user
 def delete_account(userid, id_to_delete):
     conn = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="password", port=8008)
     cur = conn.cursor()
@@ -90,6 +91,7 @@ def delete_account(userid, id_to_delete):
     cur.close()
     conn.close()
 
+#updates a specified account associated with the user
 def update_account(id_to_update, userid, username, email, encrypted_password, website):
     conn = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="password", port=8008)
     cur = conn.cursor()
