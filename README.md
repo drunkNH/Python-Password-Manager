@@ -1,4 +1,6 @@
 # A Python Password Manager using PostgreSQL
+![image](https://i.gyazo.com/511deca6ddd9c3a9ba2fe283fc0e7dec.png)
+
 ## Purpose
 A terminal-based Password Manager program design to keep a person's passwords to be stored and retrieved using a database, using psycopg2 as the python adapter for PostgreSQL.
 
