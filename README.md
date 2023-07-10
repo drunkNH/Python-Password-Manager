@@ -8,7 +8,7 @@ Multiple users can use the program, but the program does not allow users to peek
 
 A master password is used to "unlock" a user's stored passwords in the database. The master password is salted and hashed using argon2 to secure the master password.
 
-A user's stored passwords is encrypted using Cryptography's Fernet, and only decrypted to the original user.
+A user's stored passwords is encrypted using the Cryptography library, and only decrypted to the original user.
 
 A password generator is also included, allowing for randomized secured password of variable length chosen by the user.
 
