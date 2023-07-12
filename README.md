@@ -2,7 +2,7 @@
 ![image](https://i.gyazo.com/511deca6ddd9c3a9ba2fe283fc0e7dec.png)
 
 ## Purpose
-A terminal-based Password Manager program design to keep a person's passwords to be stored and retrieved using a database, using psycopg2 as the python adapter for PostgreSQL.
+A terminal-based CRUD Password Manager program design to keep a person's passwords to be stored and retrieved using a database, using psycopg2 as the python adapter for PostgreSQL.
 
 Multiple users can use the program, but the program does not allow users to peek at another user's passwords.
 
@@ -11,8 +11,6 @@ A master password is used to "unlock" a user's stored passwords in the database.
 A user's stored passwords is encrypted using the Cryptography library, and only decrypted to the original user.
 
 A password generator is also included, allowing for randomized secured password of variable length chosen by the user.
-
-A user can update an account, as well as deleting it.
 
 A user can retrieve an account's passwords by entering the webiste/service associated with the account. In the case of alternative accounts i.e. multiple accounts with the same service, the program will scroll through the accounts with the same requested service
 
